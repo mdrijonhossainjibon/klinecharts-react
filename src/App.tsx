@@ -15,16 +15,7 @@ import "./app.css";
 function App() {
   return (
     <div className="app">
-      <ChartType />
-      <Theme />
-      <YAxis />
-      <Language />
-      <Tooltip />
-      <Timezone />
       <Indicator />
-      <Overlay />
-      <LoadMore />
-      <Update />
     </div>
   );
 }
