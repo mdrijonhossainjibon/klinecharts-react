@@ -1,21 +1,22 @@
-import React from "react";
-import ChartType from "./chart/ChartType";
 import Indicator from "./chart/Indicator";
-import Theme from "./chart/Theme";
-import YAxis from "./chart/YAxis";
-import Language from "./chart/Language";
-import Tooltip from "./chart/Tooltip";
-import Timezone from "./chart/Timezone";
-import Overlay from "./chart/Overlay";
-import LoadMore from "./chart/LoadMore";
-import Update from "./chart/Update";
 
 import "./app.css";
-
+import JSON from "./data.json";
 function App() {
+  const data = JSON.map((i) => {
+    return {
+      open: i[1],
+      close: i[4],
+      high: i[2],
+      low: i[3],
+      timestamp: i[0],
+      volume: i[7],
+    };
+  });
+
   return (
     <div className="app">
-      <Indicator />
+      <Indicator intialldata={data.slice(0, 4)} />
     </div>
   );
 }

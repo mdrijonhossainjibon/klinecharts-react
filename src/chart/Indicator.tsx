@@ -3,7 +3,7 @@ import { init, dispose, Chart, KLineData } from "klinecharts";
 
 import Layout from "../Layout";
 
-export default function Indicator() {
+export default function Indicator(props: any) {
   const chart = useRef<Chart | null>(null);
   const paneId = useRef<string>("");
 
@@ -15,29 +15,21 @@ export default function Indicator() {
       id: "candle_pane",
     });
 
-    chart.current?.applyNewData([
-      {
-        open: 0,
-        close: 0,
-        high: 0,
-        low: 0,
-        timestamp: Date.now() - 9 * 1000,
-        volume: 0,
-      },
-    ]);
-    setInterval(() => {
-      chart.current?.updateData({
-        open: Math.random(),
-        close: Math.random(),
-        high: Math.random(),
-        low: Math.random(),
-        timestamp: Date.now() - 9 * 1000,
-        volume: Math.floor(Math.random() * 10),
-      });
+    chart.current?.applyNewData(props.intialldata ? props.intialldata : []);
+
+    const UpdateFunction = (newdata: any) => {
+      chart.current?.updateData(newdata);
+
       return () => {
         dispose("k-line-chart");
       };
-    }, 10000);
+    };
+
+    setInterval(() => {
+      if (props.updated) {
+        UpdateFunction(props.updated);
+      }
+    }, 4);
   }, []);
 
   return (
